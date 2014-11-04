@@ -1,28 +1,17 @@
 package com.example.busfsetdroid;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-import org.json.JSONArray;
 
 import android.app.Activity;
-import android.os.AsyncTask;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -41,20 +30,27 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private static HashMap<String, Integer> routeMap = new HashMap<String, Integer>();
-	private HashMap<String, Integer> stopMap;
+	public static HashMap<String, Integer> routeMap = new HashMap<String, Integer>();
+	HashMap<String, Integer> stopMap;
 	List<String> spinnerArray =  new ArrayList<String>();
 	List<String> stops =  new ArrayList<String>();
 	ArrayAdapter<String> stopAdapter;
 	MainActivity thisAct = this;
-	private String transitDataURL = "http://10.0.2.2:5000";
+	SharedPreferences sharedPrefs;
+	private String transitDataURL;
+	private String predictionApi;
+	private HashMap<String,String> prefsCache = new HashMap<String,String>();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//populate route map here
-		String url = transitDataURL + "/transit_data/MET/routes";
-		populateRouteMap(url);
+		//populate prefscache to monitor changes
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		for(String k : sharedPrefs.getAll().keySet()){
+			prefsCache.put(k, null);
+		}
 		setContentView(R.layout.activity_main);
+		updateFields();
     	Spinner routeSpin = (Spinner) findViewById(R.id.route_id);
         routeSpin.setOnItemSelectedListener(
                 new OnItemSelectedListener(){
@@ -63,7 +59,6 @@ public class MainActivity extends Activity {
 					@Override
 					public void onItemSelected(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
-						int route_id = routeMap.get(arg0.getSelectedItem().toString());
 				    	AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
 				    	actv.addTextChangedListener(new TextWatcher(){
 							boolean stopsRetrieved = false;
@@ -96,6 +91,10 @@ public class MainActivity extends Activity {
                 });
 	}
 
+	protected void onResume(){
+		super.onResume();
+        updateFields();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -103,24 +102,41 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) { 
+        case R.id.action_settings:
+            Intent i = new Intent(this, SettingsActivity.class);
+            startActivity(i);
+            break; 
+        }
+        return true;
+    }
 	
 	public String update(){
-		RadioGroup radioButtonGroup = (RadioGroup) findViewById(R.id.radioGroup1);
-		int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
-		RadioButton radioButton = (RadioButton) radioButtonGroup.findViewById(radioButtonID);
-	    String mode = (String) radioButton.getText();
+		RadioGroup rg1 = (RadioGroup) findViewById(R.id.radioGroup1);
+		String mode = "";
+		if(rg1.getCheckedRadioButtonId()!=-1){
+		    int id= rg1.getCheckedRadioButtonId();
+		    View radioButton = rg1.findViewById(id);
+		    int radioId = rg1.indexOfChild(radioButton);
+		    RadioButton btn = (RadioButton) rg1.getChildAt(radioId);
+		    mode = (String) btn.getText();
+		}
+		AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+		dlgAlert.setMessage("This is an alert with no consequence");
+		dlgAlert.setTitle("App Title");
+		dlgAlert.setPositiveButton("OK", null);
+		dlgAlert.setCancelable(true);
+		dlgAlert.create().show();
 		
+		dlgAlert.setPositiveButton("Ok",
+			    new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface dialog, int which) {
+			          //dismiss the dialog  
+			        }
+			    });
     	AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
 		Spinner routeSpin = (Spinner) findViewById(R.id.route_id);
 		int route_id = routeMap.get(routeSpin.getSelectedItem().toString());
@@ -134,93 +150,42 @@ public class MainActivity extends Activity {
 	}
 	
 	private void populateRouteMap(String urlString){
-		new ReadJSONFeedTask().execute(urlString);
+		new UpdateRoutesTask(this).execute(urlString);
 	}
 	
+	private void updateFields(){
+		PreferenceManager.setDefaultValues(this, R.xml.app_preferences, false);
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String key = "transit_data";
+		String base = sharedPrefs.getString(key, "null");
+		boolean reset = false;
+		if((prefsCache.get(key)!=base)){
+			prefsCache.put(key, base);
+			reset = true;
+		}
+		key = "city_agency";
+		String cityUrl = sharedPrefs.getString(key, "buffalo/MET");
+		if((prefsCache.get(key)!=cityUrl)){
+			prefsCache.put(key, cityUrl);
+			reset = true;
+		}
+		if(reset){
+			Spinner routeSpin = (Spinner) findViewById(R.id.route_id);
+			routeMap.clear();
+			routeSpin.setAdapter(null);
+			String[] city_details = cityUrl.split("/");
+			transitDataURL = base + city_details[1] + "/";
+			base = sharedPrefs.getString("prediction_api", "null");
+			predictionApi = base + city_details[0] + "/";
+			populateRouteMap(transitDataURL + "routes");
+		}
+	}
 	private void updateStops(String reg, int route_id, boolean query){
 		//TODO: move most of these definitions out and make them one-time
 		if(!query){
 			stops.clear();
-			String url = transitDataURL + "/transit_data/MET/"+ route_id + "/stops/" + reg;
-			new ReadJSONFeedTaskS().execute(url);
+			String url = transitDataURL + route_id + "/stops/" + reg.split(" ")[0];
+			new UpdateStopsTask(this).execute(url);
 		}
 	}
-	
-    private class ReadJSONFeedTask extends AsyncTask
-    <String, Void, String> {
-        protected String doInBackground(String... urls) {
-            return readJSONFeed(urls[0]);
-        }
- 
-        protected void onPostExecute(String result) {
-            try {
-                JSONObject resultJson = new JSONObject(result);
-                JSONArray routeItems = resultJson.getJSONArray("results"); 
-                for(int i = 0;i< routeItems.length(); i++){
-                	resultJson = routeItems.getJSONObject(i);
-                	String key = resultJson.getString("route_long_name");
-                	spinnerArray.add(key);
-                	routeMap.put(key,resultJson.getInt("route_id"));
-                }
-            	Spinner routeSpin = (Spinner) findViewById(R.id.route_id);
-            	Collections.sort(spinnerArray);
-            	ArrayAdapter<String> adapter = new ArrayAdapter<String>(thisAct, android.R.layout.simple_spinner_item, spinnerArray);
-    			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    			routeSpin.setAdapter(adapter);
-            } catch (Exception e) {
-                Log.d("ReadJSONFeedTask", e.getLocalizedMessage());
-            }          
-        }
-    }
-    private class ReadJSONFeedTaskS extends AsyncTask
-    <String, Void, String> {
-        protected String doInBackground(String... urls) {
-            return readJSONFeed(urls[0]);
-        }
- 
-        protected void onPostExecute(String result) {
-            try {
-                JSONObject resultJson = new JSONObject(result);
-                JSONArray routeItems = resultJson.getJSONArray("results"); 
-                for(int i = 0;i< routeItems.length(); i++){
-                	resultJson = routeItems.getJSONObject(i);
-                	String key = resultJson.getString("stop_name");
-                	stops.add(key);
-                }
-    	    	thisAct.stopAdapter = new ArrayAdapter<String>(thisAct, android.R.layout.simple_list_item_1, stops);
-    	    	AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1); 
-    	    	actv.setAdapter(stopAdapter);            	
-    	    	} 
-            catch (Exception e) {
-                Log.d("ReadJSONFeedTask", e.getLocalizedMessage());
-            }          
-        }
-    }
-	
-    public String readJSONFeed(String URL) {
-        StringBuilder stringBuilder = new StringBuilder();
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(URL);
-        try {
-            HttpResponse response = httpClient.execute(httpGet);
-            StatusLine statusLine = response.getStatusLine();
-            int statusCode = statusLine.getStatusCode();
-            if (statusCode == 200) {
-                HttpEntity entity = response.getEntity();
-                InputStream inputStream = entity.getContent();
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(inputStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    stringBuilder.append(line);
-                }
-                inputStream.close();
-            } else {
-                Log.d("JSON", "Failed to download file");
-            }
-        } catch (Exception e) {
-            Log.d("readJSONFeed", e.getLocalizedMessage());
-        }        
-        return stringBuilder.toString();
-    }
 }
