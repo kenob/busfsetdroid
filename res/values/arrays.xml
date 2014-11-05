@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="cities">
-        <item >&quot;buffalo&quot;</item>
-        <item >&quot;rochester&quot;</item>
-    </string-array>
     <string-array name="city_urls">
-        <item >&quot;buffalo/MET&quot;</item>
-        <item >&quot;rochester/RET&quot;</item>
+    </string-array>
+    <string-array name="cities">
     </string-array>
     
 </resources>

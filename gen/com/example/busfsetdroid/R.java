@@ -9,8 +9,8 @@ package com.example.busfsetdroid;
 
 public final class R {
     public static final class array {
-        public static final int cities=0x7f050000;
-        public static final int city_urls=0x7f050001;
+        public static final int cities=0x7f050001;
+        public static final int city_urls=0x7f050000;
     }
     public static final class attr {
     }
@@ -29,18 +29,20 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b0008;
-        public static final int autoCompleteTextView1=0x7f0b0006;
+        public static final int action_settings=0x7f0b0009;
+        public static final int agency_id=0x7f0b0008;
+        public static final int autoCompleteTextView1=0x7f0b0007;
         public static final int radio0=0x7f0b0003;
         public static final int radio1=0x7f0b0004;
         public static final int radioGroup1=0x7f0b0002;
         public static final int route_id=0x7f0b0001;
-        public static final int textView1=0x7f0b0007;
+        public static final int textView1=0x7f0b0006;
         public static final int textView3=0x7f0b0000;
         public static final int time=0x7f0b0005;
     }
     public static final class integer {
         public static final int no=0x7f070000;
+        public static final int stop_max_lines=0x7f070001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -55,11 +57,13 @@ public final class R {
         public static final int cancel=0x7f080012;
         public static final int city_default=0x7f080015;
         public static final int city_message=0x7f080016;
+        public static final int city_preference_key=0x7f080018;
         public static final int city_summary=0x7f080017;
         public static final int hello_world=0x7f080001;
         public static final int ok=0x7f080011;
         public static final int prediction_api_message=0x7f08000f;
         public static final int prediction_api_pref_msg=0x7f080010;
+        public static final int prediction_api_preference_key=0x7f080019;
         public static final int prediction_api_summary=0x7f080013;
         public static final int prediction_api_url=0x7f08000c;
         public static final int queryb=0x7f080007;
@@ -68,6 +72,7 @@ public final class R {
         public static final int settings_transit_data=0x7f08000d;
         public static final int stopLabel=0x7f080005;
         public static final int stopType=0x7f080006;
+        public static final int transit_data_api_key=0x7f08001a;
         public static final int transit_data_source=0x7f08000b;
         public static final int transit_data_summary=0x7f080014;
         public static final int transit_data_title=0x7f08000e;

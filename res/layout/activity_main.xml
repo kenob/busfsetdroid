@@ -50,26 +50,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp" />
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/time"
-        android:layout_below="@+id/route_id"
-        android:layout_marginTop="48dp"
-        android:contentDescription="@string/stopLabel"
-        android:ems="10" />
-
-    <Spinner
-        android:id="@+id/route_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/time"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:contentDescription="Route" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -78,5 +58,37 @@
         android:layout_alignRight="@+id/radioGroup1"
         android:text="@string/stopLabel"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/time"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="17dp"
+        android:contentDescription="@string/stopLabel"
+        android:ems="10"
+        android:maxLines="@integer/stop_max_lines" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <Spinner
+        android:id="@+id/route_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/autoCompleteTextView1"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="Route" />
+
+    <Spinner
+        android:id="@+id/agency_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
 
 </RelativeLayout>

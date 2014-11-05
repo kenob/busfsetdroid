@@ -27,9 +27,10 @@ public class UpdateRoutesTask extends AsyncTask
                 JSONArray routeItems = resultJson.getJSONArray("results"); 
                 for(int i = 0;i< routeItems.length(); i++){
                 	resultJson = routeItems.getJSONObject(i);
-                	String key = resultJson.getString("route_long_name");
-                	thisAct.spinnerArray.add(key);
-                	thisAct.routeMap.put(key,resultJson.getInt("route_id"));
+                	String key = resultJson.optString("route_long_name", "null");
+                	int label = resultJson.optInt("route_short_name", 000);
+                	thisAct.spinnerArray.add(label + " " + key);
+                	thisAct.routeMap.put(label + " " + key, resultJson.optInt("route_id",0));
                 }
             	Spinner routeSpin = (Spinner) thisAct.findViewById(R.id.route_id);
             	Collections.sort(thisAct.spinnerArray);
