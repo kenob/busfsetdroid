@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <EditTextPreference android:defaultValue="@string/transit_data_source" android:selectable="true" android:key="@string/transit_data_api_key" android:dialogTitle="@string/settings_transit_data" android:title="@string/transit_data_title" android:negativeButtonText="@string/cancel" android:positiveButtonText="@string/ok" android:summary="@string/transit_data_summary"/>
+        <EditTextPreference android:defaultValue="@string/prediction_api_url" android:key="@string/prediction_api_preference_key" android:dialogTitle="@string/prediction_api_message" android:title="@string/prediction_api_pref_msg" android:negativeButtonText="@string/cancel" android:positiveButtonText="@string/ok" android:summary="@string/prediction_api_summary"/>
+        <ListPreference android:key="@string/city_preference_key" android:title="@string/city_message" android:summary="@string/city_summary" android:entryValues="@array/city_urls" android:entries="@array/cities" android:defaultValue="@string/city_default"/>
+    </PreferenceScreen>
