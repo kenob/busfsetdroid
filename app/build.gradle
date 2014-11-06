@@ -1,0 +1,32 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "20.0.0"
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    defaultConfig {
+        applicationId "com.example.busfsetdroid"
+        minSdkVersion 19
+        targetSdkVersion 21
+    }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:21.0.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.squareup.retrofit:retrofit:1.7.1'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'org.parceler:parceler:0.2.7'
+}

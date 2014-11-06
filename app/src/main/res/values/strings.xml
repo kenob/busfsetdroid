@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BusfsetDroid</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_login">Login</string>
+    <string name="Submit">Submit</string>
+    <string name="routeLabel">Route</string>
+    <string name="stopLabel">Stop</string>
+    <string name="stopType">Start typing the stop</string>
+    <string name="queryb">Query</string>
+    <string name="reportb">Report</string>
+    <string name="welcome">Welcome to Busfset, what would you like to do today?</string>
+    <string name="welcome2">What would you like to do with Busfset today?</string>
+    <string name="transit_data_source">http://10.0.2.2:5000/transit_data</string>
+    <string name="prediction_api_url">http://10.0.2.2:8080/_ah/api/delaypred/v1/delaypred/</string>
+    <string name="settings_transit_data">Set Transit Data URL</string>
+    <string name="transit_data_title">Transit Data URL</string>
+    <string name="prediction_api_message">Set Prediction API Source</string>
+    <string name="prediction_api_pref_msg">Prediction API URL</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="prediction_api_summary">Indicates the URL of the prediction api used by the app. ou should normally leave this as the default</string>
+    <string name="transit_data_summary">Indicates the URL of the hosted transit data used by the app. ou should normally leave this as the default</string>
+    <string name="city_default">"buffalo/MET"</string>
+    <string name="city_message">City</string>
+    <string name="city_summary">If you do not find your city on this list, visit busfset.org to see how you can help</string>
+    <string name="city_preference_key">city_preference</string>
+    <string name="prediction_api_preference_key">prediction_api</string>
+    <string name="transit_data_api_key">transit_data</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="emailFieldLabel">EMAIL</string>
+    <string name="passwordFieldLabel">PASSWORD</string>
+    <string name="loginButtonText">LOGIN</string>
+
+</resources>

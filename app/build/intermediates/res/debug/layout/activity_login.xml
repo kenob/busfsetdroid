@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/baseLayout">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/login_email"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/emailFieldLabel"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/login_password"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/passwordFieldLabel"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loginButtonText"
+        android:id="@+id/login_button"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>
+<!-- From: file:/home/kenob/AndroidstudioProjects/busfsetdroid/app/src/main/res/layout/activity_login.xml -->
