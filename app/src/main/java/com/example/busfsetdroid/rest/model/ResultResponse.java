@@ -9,10 +9,10 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class ResultResponse {
-        @SerializedName("message")
-        private String message;
-        public String getMessage() {
-            return message;
-        }
+    @SerializedName("message")
+    String message;
 
+    public String getMessage(){
+        return message;
+    }
 }

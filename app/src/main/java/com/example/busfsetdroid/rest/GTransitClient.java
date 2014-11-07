@@ -23,7 +23,6 @@ public class GTransitClient
         this.BASE_URL = PreferenceManager.getDefaultSharedPreferences(context).getString("transit_data", "/");
         this.context = context;
         Gson gson = new GsonBuilder()
-                .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
                 .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
                 .create();
 

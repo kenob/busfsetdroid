@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.busfsetdroid.APITestActivity">
+    <item android:id="@+id/action_cities_test" android:title="Get Cities Test"
+        android:orderInCategory="99" android:showAsAction="never" />
+    <item android:id="@+id/action_routes_test" android:title="Get Routes Test"
+        android:orderInCategory="98" android:showAsAction="never" />
+    <item android:id="@+id/action_agencies_test" android:title="Get Agencies Test"
+        android:orderInCategory="87" android:showAsAction="never" />
+    <item android:id="@+id/action_login_test" android:title="Login test"
+        android:orderInCategory="96" android:showAsAction="never" />
+    <item android:id="@+id/action_stops_test" android:title="Get Stops Test"
+        android:orderInCategory="95" android:showAsAction="never" />
+</menu>
+<!-- From: file:/home/kenob/AndroidstudioProjects/busfsetdroid/app/src/main/res/menu/menu_apitest.xml -->

@@ -20,11 +20,23 @@
         revision="20.0.0"
         sha1="0766c15268800a4c6bb27c49f07627344747d53c"/>
     <item
+        dex="/home/kenob/AndroidstudioProjects/busfsetdroid/app/build/intermediates/pre-dexed/debug/classes-a6476cb4af3fa98725b4b28faa67fd88350facea.jar"
+        jar="/home/kenob/AndroidstudioProjects/busfsetdroid/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.2.42/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e5f81129dfb3d02df80126512bc98278ed2bb40a"/>
+    <item
         dex="/home/kenob/AndroidstudioProjects/busfsetdroid/app/build/intermediates/pre-dexed/debug/retrofit-1.7.1-fe53cecf00b2fee987ca3d37da8da3516ed87767.jar"
         jar="/home/kenob/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/1.7.1/168a878946d665200edc733ac715b1264a6cd7b6/retrofit-1.7.1.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="168a878946d665200edc733ac715b1264a6cd7b6"/>
+    <item
+        dex="/home/kenob/AndroidstudioProjects/busfsetdroid/app/build/intermediates/pre-dexed/debug/classes-de567a2c158805eda0f07269674ef83daae140e6.jar"
+        jar="/home/kenob/AndroidstudioProjects/busfsetdroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="95fd37732ec852e99f07eeb516a3650172f1d136"/>
     <item
         dex="/home/kenob/AndroidstudioProjects/busfsetdroid/app/build/intermediates/pre-dexed/debug/commons-beanutils-1.9.0-c85cad7ae96193a3c592b2a3483360e3a177ada7.jar"
         jar="/home/kenob/.gradle/caches/modules-2/files-2.1/commons-beanutils/commons-beanutils/1.9.0/427662b038bd8f52097f783f6ea163e45851b2a1/commons-beanutils-1.9.0.jar"

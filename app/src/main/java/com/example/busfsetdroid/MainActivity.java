@@ -120,7 +120,7 @@ public class MainActivity extends Activity {
             startActivity(i);
             break;
         case R.id.action_login:
-            i = new Intent(this,LoginActivity.class);
+            i = new Intent(this,APITestActivity.class);
             startActivity(i);
             break;
         }

@@ -1,5 +1,7 @@
 package com.example.busfsetdroid.rest;
 
+import android.util.Log;
+
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.*;
@@ -24,11 +26,14 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
                 JsonElement jsonElement = elementAdapter.read(in);
                 if (jsonElement.isJsonObject()) {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    if (jsonObject.has("results") && jsonObject.get("results").isJsonObject())
-                    {
-                        jsonElement = jsonObject.get("data");
-                    }
+//                    if (jsonObject.has("results") && jsonObject.get("results").isJsonObject())
+//                    {
+//                        jsonElement = jsonObject.get("data");
+//                    }
+                    Log.d("RESTLOG", jsonObject.getAsString());
+
                 }
+
 
                 return delegate.fromJsonTree(jsonElement);
             }
