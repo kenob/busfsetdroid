@@ -6,16 +6,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.busfsetdroid.rest.GTransitClient;
 import com.example.busfsetdroid.rest.model.AgencyResponse;
 import com.example.busfsetdroid.rest.model.CityResponse;
 import com.example.busfsetdroid.rest.model.GenericResponse;
 import com.example.busfsetdroid.rest.model.RouteResponse;
-import com.example.busfsetdroid.rest.model.StopResponse;
+import com.example.busfsetdroid.rest.model.StopLocationResponse;
 import com.example.busfsetdroid.rest.service.GTransitService;
 
 import retrofit.Callback;
@@ -86,9 +84,9 @@ public class APITestActivity extends Activity {
                 });
                 break;
             case R.id.action_stops_test:
-                service.listStops("buffalo", "MET", 1, new Callback<StopResponse>() {
+                service.listStops("buffalo", "MET", 1, new Callback<StopLocationResponse>() {
                     @Override
-                    public void success(StopResponse res, Response response) {
+                    public void success(StopLocationResponse res, Response response) {
                         String message = "NOTHING FOR YOU";
                         if(res.getResults().size()>0) {
                             message = res.getResults().get(0).getStop_name();

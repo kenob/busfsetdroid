@@ -2,18 +2,12 @@ package com.example.busfsetdroid.rest.service;
 
 import com.example.busfsetdroid.rest.model.AgencyResponse;
 import com.example.busfsetdroid.rest.model.CityResponse;
-import com.example.busfsetdroid.rest.model.CityResult;
 import com.example.busfsetdroid.rest.model.GenericResponse;
 import com.example.busfsetdroid.rest.model.RouteResponse;
-import com.example.busfsetdroid.rest.model.RouteResult;
-import com.example.busfsetdroid.rest.model.StopResponse;
+import com.example.busfsetdroid.rest.model.StopLocationResponse;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
-import org.json.JSONObject;
 
 import retrofit.Callback;
-import retrofit.client.Response;
 import retrofit.http.*;
 
 /**
@@ -36,7 +30,7 @@ public interface GTransitService {
 //    void listTrips(Callback<JsonObject> callback);
 
     @GET("/{city}/{agency_id}/{route_id}/stops")
-    void listStops(@Path("city") String city, @Path("agency_id") String agency_id, @Path("route_id") int route_id, Callback<StopResponse> callback);
+    void listStops(@Path("city") String city, @Path("agency_id") String agency_id, @Path("route_id") int route_id, Callback<StopLocationResponse> callback);
 
     @FormUrlEncoded
     @POST("/login")
